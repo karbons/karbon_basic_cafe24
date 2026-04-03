@@ -4,26 +4,22 @@
 
 ## 프로젝트 구조
 
-```
-gnu_karbon/
-├── api/                    # FAPI 백엔드(그누보드5 기반)
-│   ├── index.php          # 진입점
-│   ├── _common.php        # 공통 함수
-│   ├── routes/            # API 라우트 파일들
-│   ├── lib/               # 라이브러리
-│   └── config/            # 설정 파일
-├── frontend/              # SvelteKit 프론트엔드
-│   ├── src/
-│   │   ├── routes/        # 페이지 라우트
-│   │   └── lib/           # 유틸리티 & 컴포넌트
-│   └── package.json
-├── manager/              # 관리자 SvelteKit 프론트엔드
-│   ├── src/
-│   │   ├── routes/        # 페이지 라우트
-│   │   └── lib/           # 유틸리티 & 컴포넌트
-│   └── package.json
-└── docs/                  # 문서
-```
+karbon_basic_cafe24/
+├── backend/                # 백엔드 관련
+│   ├── v1/                # 그누보드5 + FAPI 통합형 (Cafe24 배포용)
+│   │   ├── fapi/          # FAPI 코어 및 공통 라이브러리
+│   │   ├── adm/           # 그누보드 관리자
+│   │   └── ...            # 그누보드5 기본 엔진
+│   └── rust/              # 향후 마이그레이션을 위한 Rust 백엔드
+├── frontend/              # 프론트엔드 (SvelteKit)
+│   ├── main/              # 랜딩페이지
+│   ├── app/               # 사용자 웹/앱
+│   └── admin/             # 관리자 페이지
+├── scripts/               # 자동화 스크립트
+│   ├── deploy-*.sh        # 파트별 배포 스크립트
+│   └── doc/               # 상세 가이드 문서
+├── docs/                  # 프로젝트 기술 문서
+└── .env                   # 배포 및 개발 환경 통합 설정
 
 ## 주요 기능
 
