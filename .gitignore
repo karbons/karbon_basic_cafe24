@@ -14,10 +14,8 @@ yarn.lock
 pnpm-lock.yaml
 
 # Gunuboard
-data/
-api/.env
-api/data/
-api/logs/
+backend/v1/
+
 
 # Build artifacts
 frontend/app/build/
@@ -29,3 +27,9 @@ frontend/main/build/
 .idea/
 *.swp
 *.swo
+
+
+# ai agent setting
+opencode.json
+.opencode/ 
+.sisyphus/

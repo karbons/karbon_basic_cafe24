@@ -2,7 +2,7 @@
 
 # ===================================
 # API 배포 스크립트
-# gnu5_api/gnuboard/api/ 폴더를 FTP 서버로 업로드
+# backend/v1/ 폴더를 SFTP 서버로 업로드
 # ===================================
 
 set -e  # 에러 발생 시 스크립트 중단
@@ -12,136 +12,127 @@ RED='\033[0;31m'
 GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
 BLUE='\033[0;34m'
+CYAN='\033[0;36m'
 NC='\033[0m' # No Color
 
 # 경로 설정
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$(dirname "$SCRIPT_DIR")"
-API_DIR="$PROJECT_ROOT/backend/gnuboard/api"
+API_DIR="$PROJECT_ROOT/backend/v1"
 
-# 옵션 파싱
-DRY_RUN=false
-SHOW_HELP=false
-
-for arg in "$@"; do
-    case $arg in
-        --dry-run)
-            DRY_RUN=true
-            shift
-            ;;
-        --help)
-            SHOW_HELP=true
-            shift
-            ;;
-        *)
-            ;;
-    esac
-done
-
-# 도움말 표시
-if [ "$SHOW_HELP" = true ]; then
-    echo -e "${BLUE}========================================${NC}"
-    echo -e "${BLUE}  API 배포 스크립트 사용법${NC}"
-    echo -e "${BLUE}========================================${NC}"
-    echo ""
-    echo -e "${YELLOW}사용법:${NC}"
-    echo -e "  ./deploy-api.sh [옵션]"
-    echo ""
-    echo -e "${YELLOW}옵션:${NC}"
-    echo -e "  --help      이 도움말을 표시합니다"
-    echo -e "  --dry-run   실제 업로드 없이 업로드될 파일 목록만 표시합니다"
-    echo ""
-    echo -e "${YELLOW}설명:${NC}"
-    echo -e "  gnu5_api/gnuboard/api/ 폴더를 FTP 서버로 업로드합니다."
-    echo -e "  FTP 설정은 .env 파일에서 읽어옵니다."
-    echo ""
-    echo -e "${YELLOW}필요한 환경 변수 (.env):${NC}"
-    echo -e "  FTP_HOST    FTP 서버 주소"
-    echo -e "  FTP_USER    FTP 사용자명"
-    echo -e "  FTP_PASS    FTP 비밀번호"
-    echo -e "  FTP_PATH    FTP 업로드 경로"
-    echo ""
-    exit 0
-fi
-
-# .env 파일 로드
-ENV_FILE="$PROJECT_ROOT/.env"
-if [ ! -f "$ENV_FILE" ]; then
-    echo -e "${RED}✗ .env 파일을 찾을 수 없습니다: $ENV_FILE${NC}"
-    exit 1
-fi
-
-# .env 파일에서 FTP 설정 읽기
-source "$ENV_FILE"
-
-# FTP 설정 확인
-if [ -z "$FTP_HOST" ] || [ -z "$FTP_USER" ] || [ -z "$FTP_PASS" ] || [ -z "$FTP_PATH" ]; then
-    echo -e "${RED}✗ FTP 설정이 완전하지 않습니다. .env 파일을 확인하세요.${NC}"
-    echo -e "${YELLOW}필요한 변수: FTP_HOST, FTP_USER, FTP_PASS, FTP_PATH${NC}"
-    exit 1
-fi
-
-# API 디렉토리 확인
-if [ ! -d "$API_DIR" ]; then
-    echo -e "${RED}✗ API 디렉토리를 찾을 수 없습니다: $API_DIR${NC}"
-    exit 1
-fi
-
-# lftp 설치 확인
-if ! command -v lftp &> /dev/null; then
-    echo -e "${RED}✗ lftp가 설치되어 있지 않습니다.${NC}"
-    echo -e "${YELLOW}설치 방법: brew install lftp${NC}"
-    exit 1
-fi
-
-echo -e "${YELLOW}========================================${NC}"
-if [ "$DRY_RUN" = true ]; then
-    echo -e "${YELLOW}  API 배포 시뮬레이션 (Dry Run)${NC}"
-else
-    echo -e "${YELLOW}  API 배포 시작${NC}"
-fi
-echo -e "${YELLOW}========================================${NC}"
-
-echo -e "${GREEN}✓ API 디렉토리: $API_DIR${NC}"
-echo -e "${GREEN}✓ FTP 서버: $FTP_HOST${NC}"
-echo -e "${GREEN}✓ FTP 경로: $FTP_PATH${NC}"
-
-if [ "$DRY_RUN" = true ]; then
-    echo -e "${YELLOW}→ 업로드될 파일 목록 확인 중...${NC}"
+load_env() {
+    if [ -f "$PROJECT_ROOT/.env" ]; then
+        set -a
+        . "$PROJECT_ROOT/.env" 2>/dev/null
+        set +a
+    fi
     
-    # 파일 목록 표시
-    cd "$API_DIR"
-    echo -e "${BLUE}업로드될 파일:${NC}"
-    find . -type f | while read file; do
-        echo -e "  ${GREEN}→${NC} $file"
-    done
+    SFTP_HOST="${SFTP_HOST:-}"
+    SFTP_PORT="${SFTP_PORT:-22}"
+    SFTP_USER="${SFTP_USER:-}"
+    SFTP_PASS="${SFTP_PASS:-}"
+    SFTP_PATH="${SFTP_PATH:-}"
+}
+
+check_requirements() {
+    echo -e "${BLUE}→ 필수 설정 확인 중...${NC}"
     
+    if [ -z "$SFTP_HOST" ] || [ -z "$SFTP_USER" ] || [ -z "$SFTP_PASS" ] || [ -z "$SFTP_PATH" ]; then
+        echo -e "${RED}✗ .env 파일에 SFTP 설정이 incomplete합니다${NC}"
+        echo -e "${YELLOW}  SFTP_HOST, SFTP_USER, SFTP_PASS, SFTP_PATH를 확인해주세요${NC}"
+        return 1
+    fi
+    
+    if [ ! -d "$API_DIR" ]; then
+        echo -e "${RED}✗ API 폴더가 없습니다: $API_DIR${NC}"
+        return 1
+    fi
+    
+    if ! command -v lftp &> /dev/null; then
+        echo -e "${RED}✗ lftp가 설치되어 있지 않습니다${NC}"
+        echo -e "${YELLOW}  설치: brew install lftp${NC}"
+        return 1
+    fi
+    
+    echo -e "${GREEN}✓ 필수 설정 확인 완료${NC}"
+    return 0
+}
+
+upload_files() {
     echo ""
     echo -e "${YELLOW}========================================${NC}"
-    echo -e "${BLUE}  Dry Run 완료 (실제 업로드 안 됨)${NC}"
+    echo -e "${YELLOW}  API 파일 업로드${NC}"
     echo -e "${YELLOW}========================================${NC}"
-else
-    echo -e "${YELLOW}→ FTP 서버로 파일 업로드 중...${NC}"
+    echo ""
     
-    # lftp를 사용한 FTP 업로드
-    lftp -c "
-    set ftp:ssl-allow no;
-    set net:timeout 10;
-    set net:max-retries 3;
-    set net:reconnect-interval-base 5;
-    open -u $FTP_USER,$FTP_PASS $FTP_HOST;
-    mirror --reverse --delete --verbose --exclude-glob .git/ --exclude-glob .DS_Store $API_DIR $FTP_PATH/api;
-    bye;
-    "
+    local remote_path="$SFTP_PATH/api"
+    
+    echo -e "${BLUE}→ /backend/v1 파일 업로드 중...${NC}"
+    echo -e "${BLUE}  원격 경로: $remote_path${NC}"
+    echo ""
+    
+    lftp -p "$SFTP_PORT" -u "$SFTP_USER","$SFTP_PASS" sftp://"$SFTP_HOST" <<EOF 2>&1
+set net:max-retries 3
+set net:timeout 30
+mirror -R --verbose --parallel=3 \
+    --exclude-glob .git/ \
+    --exclude-glob .DS_Store \
+    --exclude-glob .env \
+    --exclude-glob data/ \
+    "$API_DIR" "$remote_path"
+bye
+EOF
     
     if [ $? -eq 0 ]; then
-        echo -e "${GREEN}✓ 파일 업로드 완료${NC}"
         echo ""
-        echo -e "${YELLOW}========================================${NC}"
-        echo -e "${GREEN}  API 배포 완료!${NC}"
-        echo -e "${YELLOW}========================================${NC}"
+        echo -e "${GREEN}✓ API 파일 업로드 완료${NC}"
+        return 0
     else
-        echo -e "${RED}✗ 파일 업로드 실패${NC}"
+        echo ""
+        echo -e "${RED}✗ API 파일 업로드 실패${NC}"
+        return 1
+    fi
+}
+
+main() {
+    echo -e "${CYAN}========================================${NC}"
+    echo -e "${CYAN}  API (Backend) 배포${NC}"
+    echo -e "${CYAN}========================================${NC}"
+    echo ""
+    
+    load_env
+    
+    if ! check_requirements; then
         exit 1
     fi
-fi
+    
+    echo ""
+    echo -e "${BLUE}→ 배포 설정:${NC}"
+    echo -e "  호스트: ${GREEN}$SFTP_HOST${NC}"
+    echo -e "  포트: ${GREEN}$SFTP_PORT${NC}"
+    echo -e "  사용자: ${GREEN}$SFTP_USER${NC}"
+    echo -e "  원격 경로: ${GREEN}$SFTP_PATH/api${NC}"
+    echo ""
+    
+    echo -e "${YELLOW}⚠ 이 작업은 다음을 수행합니다:${NC}"
+    echo -e "  1. /backend/v1 파일을 /api 폴더에 업로드 (data/, .env 제외)"
+    echo ""
+    read -p "계속 진행하시겠습니까? (y/N): " -n 1 -r
+    echo
+    if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+        echo -e "${RED}취소되었습니다${NC}"
+        exit 1
+    fi
+    
+    if ! upload_files; then
+        exit 1
+    fi
+    
+    echo ""
+    echo -e "${GREEN}========================================${NC}"
+    echo -e "${GREEN}  배포 완료!${NC}"
+    echo -e "${GREEN}========================================${NC}"
+    echo ""
+}
+
+main "$@"
