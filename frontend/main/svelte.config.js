@@ -14,7 +14,14 @@ const config = {
 			base: '/main'
 		},
 		prerender: {
-			handleHttpError: 'warn'
+			handleHttpError: ({ path, referrer, message }) => {
+				if (message.includes('404')) {
+					console.warn(`Warning: ${path} not found (linked from ${referrer})`);
+					return;
+				}
+				throw new Error(message);
+			},
+			handleUnseenRoutes: 'ignore'
 		}
 	},
 	vitePlugin: {

@@ -1,23 +1,34 @@
 <script lang="ts">
   import { onMount } from 'svelte';
   import { page } from '$app/state';
-  import { _ } from 'svelte-i18n';
+  import { _, isLoading, waitLocale } from 'svelte-i18n';
   import { Menu, X, ChevronRight, Facebook, Instagram, Youtube, Mail, Phone, MapPin } from 'lucide-svelte';
   import favicon from '$lib/assets/favicon.svg';
   import { base } from '$app/paths';
   import LanguageDropdown from '$lib/components/LanguageDropdown.svelte';
+  import { initLocale, initLocaleAndWait } from '$lib/i18n';
 
   let { children } = $props();
   
   let isMenuOpen = $state(false);
   let isScrolled = $state(false);
+  let i18nReady = $state(false);
+  
+  const langFromPath = page.url.pathname.split('/')[2] || 'ko';
+  
+  function withLang(path: string): string {
+    return `/${langFromPath}${path}`;
+  }
 
-  onMount(() => {
+  onMount(async () => {
+    initLocale(langFromPath);
+    await waitLocale();
+    i18nReady = true;
+    
     const handleScroll = () => {
       isScrolled = window.scrollY > 20;
     };
     window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
   });
 
   function toggleMenu() {
@@ -31,50 +42,59 @@
 
 <svelte:head>
   <link rel="icon" href={favicon} />
-  <title>KARBON BUILDER - {$_('common.nav.home')}</title>
+  {#if i18nReady}
+    <title>KARBON BUILDER - {$_('common.nav.home')}</title>
+  {:else}
+    <title>KARBON BUILDER</title>
+  {/if}
 </svelte:head>
 
+{#if $isLoading || !i18nReady}
+  <div class="min-h-screen flex items-center justify-center">
+    <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600"></div>
+  </div>
+{:else}
 <div class="min-h-screen flex flex-col">
   <header 
     class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 {isScrolled ? 'bg-white/90 backdrop-blur-md shadow-sm py-3' : 'bg-transparent py-5'}"
   >
     <div class="container-custom flex items-center justify-between">
-      <a href="{base}/" class="text-2xl font-bold text-primary-600 tracking-tight" onclick={closeMenu}>
+      <a href="{base}{withLang('/')}" class="text-2xl font-bold text-primary-600 tracking-tight" onclick={closeMenu}>
         KARBON<span class="text-secondary-900">BUILDER</span>
       </a>
 
       <nav class="hidden md:flex items-center space-x-8">
         <a 
-          href="{base}/about" 
+          href="{base}{withLang('/about')}" 
           class="text-sm font-medium transition-colors hover:text-primary-600 {page.url.pathname.includes('/about') ? 'text-primary-600' : 'text-secondary-700'}"
         >
           {$_('common.nav.about')}
         </a>
         <a 
-          href="{base}/history" 
+          href="{base}{withLang('/history')}" 
           class="text-sm font-medium transition-colors hover:text-primary-600 {page.url.pathname.includes('/history') ? 'text-primary-600' : 'text-secondary-700'}"
         >
           {$_('common.nav.history')}
         </a>
         <a 
-          href="{base}/services" 
+          href="{base}{withLang('/services')}" 
           class="text-sm font-medium transition-colors hover:text-primary-600 {page.url.pathname.includes('/services') ? 'text-primary-600' : 'text-secondary-700'}"
         >
           {$_('common.nav.services')}
         </a>
         <a 
-          href="{base}/qna" 
+          href="{base}{withLang('/qna')}" 
           class="text-sm font-medium transition-colors hover:text-primary-600 {page.url.pathname.includes('/qna') ? 'text-primary-600' : 'text-secondary-700'}"
         >
           {$_('common.nav.qna')}
         </a>
         <a 
-          href="{base}/notice" 
+          href="{base}{withLang('/notice')}" 
           class="text-sm font-medium transition-colors hover:text-primary-600 {page.url.pathname.includes('/notice') ? 'text-primary-600' : 'text-secondary-700'}"
         >
           {$_('common.nav.notice')}
         </a>
-        <a href="{base}/qna" class="btn-primary py-2 px-5 text-sm">{$_('common.actions.contact')}</a>
+        <a href="{base}{withLang('/qna')}" class="btn-primary py-2 px-5 text-sm">{$_('common.actions.contact')}</a>
         <LanguageDropdown />
       </nav>
 
@@ -94,7 +114,7 @@
     >
       <nav class="flex flex-col space-y-6">
         <a 
-          href="{base}/about" 
+          href="{base}{withLang('/about')}" 
           class="text-xl font-semibold text-secondary-900 flex items-center justify-between border-b border-secondary-100 pb-4"
           onclick={closeMenu}
         >
@@ -102,7 +122,7 @@
           <ChevronRight size={20} class="text-secondary-400" />
         </a>
         <a 
-          href="{base}/history" 
+          href="{base}{withLang('/history')}" 
           class="text-xl font-semibold text-secondary-900 flex items-center justify-between border-b border-secondary-100 pb-4"
           onclick={closeMenu}
         >
@@ -110,7 +130,7 @@
           <ChevronRight size={20} class="text-secondary-400" />
         </a>
         <a 
-          href="{base}/services" 
+          href="{base}{withLang('/services')}" 
           class="text-xl font-semibold text-secondary-900 flex items-center justify-between border-b border-secondary-100 pb-4"
           onclick={closeMenu}
         >
@@ -118,7 +138,7 @@
           <ChevronRight size={20} class="text-secondary-400" />
         </a>
         <a 
-          href="{base}/qna" 
+          href="{base}{withLang('/qna')}" 
           class="text-xl font-semibold text-secondary-900 flex items-center justify-between border-b border-secondary-100 pb-4"
           onclick={closeMenu}
         >
@@ -126,14 +146,14 @@
           <ChevronRight size={20} class="text-secondary-400" />
         </a>
         <a 
-          href="{base}/notice" 
+          href="{base}{withLang('/notice')}" 
           class="text-xl font-semibold text-secondary-900 flex items-center justify-between border-b border-secondary-100 pb-4"
           onclick={closeMenu}
         >
           {$_('common.nav.notice')}
           <ChevronRight size={20} class="text-secondary-400" />
         </a>
-        <a href="{base}/qna" class="btn-primary w-full py-4 text-lg" onclick={closeMenu}>{$_('common.actions.contact')}</a>
+        <a href="{base}{withLang('/qna')}" class="btn-primary w-full py-4 text-lg" onclick={closeMenu}>{$_('common.actions.contact')}</a>
         <LanguageDropdown />
       </nav>
     </div>
@@ -163,19 +183,19 @@
         <div>
           <h3 class="text-white font-bold mb-6">{$_('common.footer.services')}</h3>
           <ul class="space-y-4 text-sm">
-            <li><a href="{base}/services" class="hover:text-white transition-colors">{$_('home.services.web.title')}</a></li>
-            <li><a href="{base}/services" class="hover:text-white transition-colors">{$_('home.services.design.title')}</a></li>
-            <li><a href="{base}/services" class="hover:text-white transition-colors">{$_('home.services.cloud.title')}</a></li>
+            <li><a href="{base}{withLang('/services')}" class="hover:text-white transition-colors">{$_('home.services.web.title')}</a></li>
+            <li><a href="{base}{withLang('/services')}" class="hover:text-white transition-colors">{$_('home.services.design.title')}</a></li>
+            <li><a href="{base}{withLang('/services')}" class="hover:text-white transition-colors">{$_('home.services.cloud.title')}</a></li>
           </ul>
         </div>
 
         <div>
           <h3 class="text-white font-bold mb-6">{$_('common.footer.support')}</h3>
           <ul class="space-y-4 text-sm">
-            <li><a href="{base}/about" class="hover:text-white transition-colors">{$_('common.nav.about')}</a></li>
-            <li><a href="{base}/notice" class="hover:text-white transition-colors">{$_('common.nav.notice')}</a></li>
-            <li><a href="{base}/qna" class="hover:text-white transition-colors">{$_('common.nav.qna')}</a></li>
-            <li><a href="{base}/qna" class="hover:text-white transition-colors">{$_('common.actions.contact')}</a></li>
+            <li><a href="{base}{withLang('/about')}" class="hover:text-white transition-colors">{$_('common.nav.about')}</a></li>
+            <li><a href="{base}{withLang('/notice')}" class="hover:text-white transition-colors">{$_('common.nav.notice')}</a></li>
+            <li><a href="{base}{withLang('/qna')}" class="hover:text-white transition-colors">{$_('common.nav.qna')}</a></li>
+            <li><a href="{base}{withLang('/qna')}" class="hover:text-white transition-colors">{$_('common.actions.contact')}</a></li>
           </ul>
         </div>
 
@@ -209,3 +229,4 @@
     </div>
   </footer>
 </div>
+{/if}

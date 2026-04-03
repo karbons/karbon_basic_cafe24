@@ -150,8 +150,8 @@ src/
 ## 🚀 시작하기
 
 ```bash
-pnpm install
-pnpm dev
+npm install
+npm run dev
 ```
 
 > 자세한 사용법은 `/docs` 또는 예제 코드를 참고하세요.

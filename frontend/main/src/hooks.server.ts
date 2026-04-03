@@ -7,6 +7,11 @@ const defaultLocale = 'ko';
 export const handle: Handle = async ({ event, resolve }) => {
 	const { cookies, url } = event;
 
+	// Skip hook during prerendering
+	if (url.pathname.startsWith('/main/_app') || url.pathname.includes('.')) {
+		return resolve(event);
+	}
+
 	// Only handle requests for /main/*
 	if (!url.pathname.startsWith('/main')) {
 		return resolve(event);
@@ -21,10 +26,10 @@ export const handle: Handle = async ({ event, resolve }) => {
 		// Valid language - set cookie and continue
 		cookies.set('lang', lang, {
 			path: '/',
-			maxAge: 60 * 60 * 24 * 365, // 1 year
+			maxAge: 60 * 60 * 24 * 365,
 			sameSite: 'lax',
 			secure: true,
-			httpOnly: false // Allow JavaScript access
+			httpOnly: false
 		});
 		return resolve(event);
 	}
