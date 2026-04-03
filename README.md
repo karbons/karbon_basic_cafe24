@@ -29,11 +29,12 @@ gnu_karbon/
 
 ### FAPI (File API)
 
-- **파일 기반 라우팅**: SvelteKit 스타일의 직관적인 라우팅 시스템
-- **HTTP Only Cookie**: JWT 토큰을 HTTP Only Cookie로 저장하여 XSS 공격 방지
-- **CORS 지원**: 여러 도메인 지원 및 동적 Origin 설정
-- **자동 API 문서화**: `/api/docs` 엔드포인트로 API 목록 자동 생성
-- **그누보드 통합**: 그누보드5의 기존 함수와 보안 기능 활용
+- **동적 파일기반 라우팅**: `폴더/폴더/{변수}/파일` 형태의 직관적인 라우팅을 지원하며, SvelteKit의 동적 파일기반 라우팅 철학을 따릅니다.
+- **SQLx 적용**: SQLx 바인딩 및 Rust의 SQLx 문법을 그대로 사용하여 향후 Rust 이전 시 비용을 최소화하였으며, 데이터베이스 마이그레이션 기능을 포함합니다.
+- **도메인 모듈화**: 엔터프라이즈급 프로젝트 전환 시 마이크로서비스로의 분리를 고려한 도메인 기반 모듈화 설계를 적용했습니다.
+- **HTTP Only Cookie**: JWT 토큰을 HTTP Only Cookie로 저장하여 XSS 공격으로부터 보안을 강화했습니다.
+- **CORS 지원**: 동적 Origin 설정을 통해 다중 도메인 환경을 지원합니다.
+
 
 ### SvelteKit 프론트엔드
 
@@ -44,6 +45,17 @@ gnu_karbon/
 - **배너**: 위치별 배너 출력
 - **팝업**: 팝업 관리 및 표시
 - **내용관리**: 내용 조회
+- **다국어 지원 (i18n)**: `/ko`, `/en`, `/ja`, `/zh` 등 폴더 기반의 직관적인 다국어 시스템 구축
+- **Firebase 연동**: Firebase 실시간 채팅 기능 지원
+
+
+### Capacitor
+
+- push 알림
+- 버전체크
+- 딥링크
+
+
 
 ## 설치 및 설정
 
@@ -148,14 +160,14 @@ app.yourdomain.com      # 프론트엔드
 ```
 
 ## 문서
-
-- [FAPI 개선 제안서](docs/fapi_improvement_proposal.md)
-- [그누보드 메인 기능 목록](docs/gnuboard_main_features.md)
-- [배포 가이드](docs/fapi_deployment_guide.md)
-- [모듈 시스템](docs/fapi_module_system.md)
-- [AI 컨텍스트](docs/fapi_ai_context.md)
-- [서버 설정](docs/fapi_server_config.md)
+### 설치 및 배포 가이드
+| 문서 | 설명 |
+|------|------|
+| [상세 설치 가이드](scripts/doc/install-detailed.md) | 로컬 환경 설치 및 설정 방법 |
+| [Cafe24 배포 가이드](scripts/doc/deploy-cafe24.md) | Cafe24 호스팅 배포 방법 |
+| [클라우드 배포 가이드](scripts/doc/deploy-cloud.md) | Vercel, Cloudflare, 자체 서버 배포 |
+| [스크립트 문서](scripts/doc/scripts.md) | 자동화 스크립트 사용법 |
 
 ## 라이선스
 
-이 프로젝트는 그누보드5의 라이선스를 따릅니다.
+이 프로젝트는 MIT 라이선스를 따릅니다.
