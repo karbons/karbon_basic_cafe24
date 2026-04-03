@@ -1,0 +1,150 @@
+[24-Dec-2025 04:14:51 Asia/Seoul] PHP Fatal error:  Uncaught Error: Call to undefined function sql_query() in /var/www/html/api/routes/health/index.php:51
+Stack trace:
+#0 Command line code(1): GET()
+#1 {main}
+  thrown in /var/www/html/api/routes/health/index.php on line 51
+[24-Dec-2025 04:14:56 Asia/Seoul] PHP Warning:  Undefined array key "SERVER_PORT" in /var/www/html/common.php on line 47
+[24-Dec-2025 04:14:56 Asia/Seoul] PHP Warning:  Undefined array key "SERVER_PORT" in /var/www/html/common.php on line 47
+[24-Dec-2025 04:14:56 Asia/Seoul] PHP Warning:  Undefined array key "SERVER_PORT" in /var/www/html/common.php on line 47
+[24-Dec-2025 04:14:56 Asia/Seoul] PHP Warning:  Undefined array key "SERVER_NAME" in /var/www/html/common.php on line 50
+[24-Dec-2025 04:14:56 Asia/Seoul] PHP Warning:  Constant _GNUBOARD_ already defined in /var/www/html/config.php on line 8
+[24-Dec-2025 04:14:56 Asia/Seoul] PHP Warning:  Undefined array key "REQUEST_URI" in /var/www/html/common.php on line 511
+[24-Dec-2025 04:14:56 Asia/Seoul] PHP Warning:  Undefined array key "REMOTE_ADDR" in /var/www/html/bbs/visit_insert.inc.php on line 5
+[24-Dec-2025 04:15:12 Asia/Seoul] PHP Warning:  Undefined array key "SERVER_PORT" in /var/www/html/common.php on line 47
+[24-Dec-2025 04:15:12 Asia/Seoul] PHP Warning:  Undefined array key "SERVER_PORT" in /var/www/html/common.php on line 47
+[24-Dec-2025 04:15:12 Asia/Seoul] PHP Warning:  Undefined array key "SERVER_PORT" in /var/www/html/common.php on line 47
+[24-Dec-2025 04:15:12 Asia/Seoul] PHP Warning:  Undefined array key "SERVER_NAME" in /var/www/html/common.php on line 50
+[24-Dec-2025 04:15:12 Asia/Seoul] PHP Warning:  Constant _GNUBOARD_ already defined in /var/www/html/config.php on line 8
+[24-Dec-2025 04:15:12 Asia/Seoul] PHP Warning:  Undefined array key "REMOTE_ADDR" in /var/www/html/bbs/visit_insert.inc.php on line 5
+[24-Dec-2025 04:15:12 Asia/Seoul] PHP Fatal error:  Uncaught Error: Call to undefined function getallheaders() in /var/www/html/api/_common.php:133
+Stack trace:
+#0 /var/www/html/api/routes/_middleware.php(68): get_jwt_member()
+#1 /var/www/html/api/index.php(58): require_once('/var/www/html/a...')
+#2 Command line code(1): require('/var/www/html/a...')
+#3 {main}
+  thrown in /var/www/html/api/_common.php on line 133
+[24-Dec-2025 04:15:20 Asia/Seoul] PHP Warning:  Constant _GNUBOARD_ already defined in /var/www/html/config.php on line 8
+[24-Dec-2025 04:15:20 Asia/Seoul] PHP Warning:  Undefined array key "REMOTE_ADDR" in /var/www/html/bbs/visit_insert.inc.php on line 5
+[24-Dec-2025 04:15:20 Asia/Seoul] PHP Warning:  Constant G5_URL already defined in Command line code on line 1
+[24-Dec-2025 04:15:20 Asia/Seoul] PHP Warning:  Constant G5_PATH already defined in Command line code on line 1
+[24-Dec-2025 04:15:20 Asia/Seoul] PHP Fatal error:  Uncaught Error: Call to undefined function getallheaders() in /var/www/html/api/_common.php:133
+Stack trace:
+#0 /var/www/html/api/routes/_middleware.php(68): get_jwt_member()
+#1 /var/www/html/api/index.php(58): require_once('/var/www/html/a...')
+#2 Command line code(1): require('/var/www/html/a...')
+#3 {main}
+  thrown in /var/www/html/api/_common.php on line 133
+[24-Dec-2025 04:15:21 Asia/Seoul] PHP Warning:  Undefined array key "SERVER_PORT" in /var/www/html/common.php on line 47
+[24-Dec-2025 04:15:21 Asia/Seoul] PHP Warning:  Undefined array key "SERVER_PORT" in /var/www/html/common.php on line 47
+[24-Dec-2025 04:15:21 Asia/Seoul] PHP Warning:  Undefined array key "SERVER_PORT" in /var/www/html/common.php on line 47
+[24-Dec-2025 04:15:21 Asia/Seoul] PHP Warning:  Undefined array key "SERVER_NAME" in /var/www/html/common.php on line 50
+[24-Dec-2025 04:15:21 Asia/Seoul] PHP Warning:  Constant _GNUBOARD_ already defined in /var/www/html/config.php on line 8
+[24-Dec-2025 04:15:21 Asia/Seoul] PHP Warning:  Undefined array key "REQUEST_URI" in /var/www/html/common.php on line 511
+[24-Dec-2025 04:15:21 Asia/Seoul] PHP Warning:  Undefined array key "REMOTE_ADDR" in /var/www/html/bbs/visit_insert.inc.php on line 5
+[24-Dec-2025 04:15:43 Asia/Seoul] PHP Warning:  Undefined array key "SERVER_PORT" in /var/www/html/common.php on line 47
+[24-Dec-2025 04:15:43 Asia/Seoul] PHP Warning:  Undefined array key "SERVER_PORT" in /var/www/html/common.php on line 47
+[24-Dec-2025 04:15:43 Asia/Seoul] PHP Warning:  Undefined array key "SERVER_PORT" in /var/www/html/common.php on line 47
+[24-Dec-2025 04:15:43 Asia/Seoul] PHP Warning:  Undefined array key "SERVER_NAME" in /var/www/html/common.php on line 50
+[24-Dec-2025 04:15:43 Asia/Seoul] PHP Warning:  Constant _GNUBOARD_ already defined in /var/www/html/config.php on line 8
+[24-Dec-2025 04:15:43 Asia/Seoul] PHP Warning:  Undefined array key "REMOTE_ADDR" in /var/www/html/bbs/visit_insert.inc.php on line 5
+[24-Dec-2025 04:15:43 Asia/Seoul] PHP Fatal error:  Uncaught Error: Call to undefined function getallheaders() in /var/www/html/api/_common.php:133
+Stack trace:
+#0 /var/www/html/api/routes/_middleware.php(68): get_jwt_member()
+#1 /var/www/html/api/index.php(58): require_once('/var/www/html/a...')
+#2 Command line code(1): require('/var/www/html/a...')
+#3 {main}
+  thrown in /var/www/html/api/_common.php on line 133
+[24-Dec-2025 04:15:57 Asia/Seoul] PHP Warning:  Undefined array key "SERVER_PORT" in /var/www/html/common.php on line 47
+[24-Dec-2025 04:15:57 Asia/Seoul] PHP Warning:  Undefined array key "SERVER_PORT" in /var/www/html/common.php on line 47
+[24-Dec-2025 04:15:57 Asia/Seoul] PHP Warning:  Undefined array key "SERVER_PORT" in /var/www/html/common.php on line 47
+[24-Dec-2025 04:15:57 Asia/Seoul] PHP Warning:  Undefined array key "SERVER_NAME" in /var/www/html/common.php on line 50
+[24-Dec-2025 04:15:57 Asia/Seoul] PHP Warning:  Constant _GNUBOARD_ already defined in /var/www/html/config.php on line 8
+[24-Dec-2025 04:15:57 Asia/Seoul] PHP Warning:  Undefined array key "REMOTE_ADDR" in /var/www/html/bbs/visit_insert.inc.php on line 5
+[24-Dec-2025 04:15:59 Asia/Seoul] PHP Warning:  Constant _GNUBOARD_ already defined in /var/www/html/config.php on line 8
+[24-Dec-2025 04:15:59 Asia/Seoul] PHP Warning:  Undefined array key "REMOTE_ADDR" in /var/www/html/bbs/visit_insert.inc.php on line 5
+[24-Dec-2025 04:15:59 Asia/Seoul] PHP Warning:  Constant G5_URL already defined in Command line code on line 1
+[24-Dec-2025 04:15:59 Asia/Seoul] PHP Warning:  Constant G5_PATH already defined in Command line code on line 1
+[24-Dec-2025 04:16:17 Asia/Seoul] PHP Warning:  Constant _GNUBOARD_ already defined in /var/www/html/config.php on line 8
+[24-Dec-2025 04:16:17 Asia/Seoul] PHP Warning:  Undefined array key "REMOTE_ADDR" in /var/www/html/bbs/visit_insert.inc.php on line 5
+[24-Dec-2025 04:16:17 Asia/Seoul] PHP Warning:  Constant G5_URL already defined in Command line code on line 1
+[24-Dec-2025 04:16:17 Asia/Seoul] PHP Warning:  Constant G5_PATH already defined in Command line code on line 1
+[24-Dec-2025 04:16:17 Asia/Seoul] PHP Fatal error:  Uncaught Error: Call to undefined function getallheaders() in /var/www/html/api/_common.php:141
+Stack trace:
+#0 /var/www/html/api/routes/_middleware.php(68): get_jwt_member()
+#1 /var/www/html/api/index.php(58): require_once('/var/www/html/a...')
+#2 Command line code(1): require('/var/www/html/a...')
+#3 {main}
+  thrown in /var/www/html/api/_common.php on line 141
+[24-Dec-2025 04:17:02 Asia/Seoul] PHP Warning:  Constant _GNUBOARD_ already defined in /var/www/html/config.php on line 8
+[24-Dec-2025 04:17:02 Asia/Seoul] PHP Warning:  Undefined array key "REMOTE_ADDR" in /var/www/html/bbs/visit_insert.inc.php on line 5
+[24-Dec-2025 04:17:02 Asia/Seoul] PHP Warning:  Constant G5_URL already defined in Command line code on line 1
+[24-Dec-2025 04:17:02 Asia/Seoul] PHP Warning:  Constant G5_PATH already defined in Command line code on line 1
+[24-Dec-2025 04:17:02 Asia/Seoul] PHP Fatal error:  Uncaught Error: Call to undefined function getallheaders() in /var/www/html/api/_common.php:141
+Stack trace:
+#0 /var/www/html/api/routes/_middleware.php(68): get_jwt_member()
+#1 /var/www/html/api/index.php(58): require_once('/var/www/html/a...')
+#2 Command line code(1): require('/var/www/html/a...')
+#3 {main}
+  thrown in /var/www/html/api/_common.php on line 141
+[24-Dec-2025 04:17:06 Asia/Seoul] PHP Warning:  Undefined array key "SERVER_PORT" in /var/www/html/common.php on line 47
+[24-Dec-2025 04:17:06 Asia/Seoul] PHP Warning:  Undefined array key "SERVER_PORT" in /var/www/html/common.php on line 47
+[24-Dec-2025 04:17:06 Asia/Seoul] PHP Warning:  Undefined array key "SERVER_PORT" in /var/www/html/common.php on line 47
+[24-Dec-2025 04:17:06 Asia/Seoul] PHP Warning:  Undefined array key "SERVER_NAME" in /var/www/html/common.php on line 50
+[24-Dec-2025 04:17:06 Asia/Seoul] PHP Warning:  Constant _GNUBOARD_ already defined in /var/www/html/config.php on line 8
+[24-Dec-2025 04:17:06 Asia/Seoul] PHP Warning:  Undefined array key "REQUEST_URI" in /var/www/html/common.php on line 511
+[24-Dec-2025 04:17:06 Asia/Seoul] PHP Warning:  Undefined array key "REMOTE_ADDR" in /var/www/html/bbs/visit_insert.inc.php on line 5
+[24-Dec-2025 04:17:06 Asia/Seoul] PHP Warning:  Constant G5_URL already defined in Command line code on line 1
+[24-Dec-2025 04:17:06 Asia/Seoul] PHP Warning:  Constant G5_PATH already defined in Command line code on line 1
+[24-Dec-2025 04:17:25 Asia/Seoul] Test log message
+[24-Dec-2025 04:17:26 Asia/Seoul] PHP Warning:  Undefined array key "SERVER_PORT" in /var/www/html/common.php on line 47
+[24-Dec-2025 04:17:26 Asia/Seoul] PHP Warning:  Undefined array key "SERVER_PORT" in /var/www/html/common.php on line 47
+[24-Dec-2025 04:17:26 Asia/Seoul] PHP Warning:  Undefined array key "SERVER_PORT" in /var/www/html/common.php on line 47
+[24-Dec-2025 04:17:26 Asia/Seoul] PHP Warning:  Undefined array key "SERVER_NAME" in /var/www/html/common.php on line 50
+[24-Dec-2025 04:17:26 Asia/Seoul] PHP Warning:  Constant _GNUBOARD_ already defined in /var/www/html/config.php on line 8
+[24-Dec-2025 04:17:26 Asia/Seoul] PHP Warning:  Undefined array key "REMOTE_ADDR" in /var/www/html/bbs/visit_insert.inc.php on line 5
+[24-Dec-2025 04:17:26 Asia/Seoul] PHP Warning:  Constant G5_URL already defined in Command line code on line 1
+[24-Dec-2025 04:17:26 Asia/Seoul] PHP Warning:  Constant G5_PATH already defined in Command line code on line 1
+[24-Dec-2025 04:17:26 Asia/Seoul] PHP Fatal error:  Uncaught Error: Call to undefined function getallheaders() in /var/www/html/api/_common.php:141
+Stack trace:
+#0 /var/www/html/api/routes/_middleware.php(68): get_jwt_member()
+#1 /var/www/html/api/index.php(58): require_once('/var/www/html/a...')
+#2 Command line code(1): require('/var/www/html/a...')
+#3 {main}
+  thrown in /var/www/html/api/_common.php on line 141
+[24-Dec-2025 04:19:56 Asia/Seoul] PHP Warning:  Constant _GNUBOARD_ already defined in /var/www/html/config.php on line 8
+[24-Dec-2025 04:19:56 Asia/Seoul] PHP Warning:  Undefined array key "REMOTE_ADDR" in /var/www/html/bbs/visit_insert.inc.php on line 5
+[24-Dec-2025 04:19:56 Asia/Seoul] PHP Warning:  Constant G5_URL already defined in Command line code on line 1
+[24-Dec-2025 04:19:56 Asia/Seoul] PHP Warning:  Constant G5_PATH already defined in Command line code on line 1
+[24-Dec-2025 04:23:54 Asia/Seoul] PHP Warning:  Undefined array key "SERVER_PORT" in /var/www/html/common.php on line 47
+[24-Dec-2025 04:23:54 Asia/Seoul] PHP Warning:  Undefined array key "SERVER_PORT" in /var/www/html/common.php on line 47
+[24-Dec-2025 04:23:54 Asia/Seoul] PHP Warning:  Undefined array key "SERVER_PORT" in /var/www/html/common.php on line 47
+[24-Dec-2025 04:23:54 Asia/Seoul] PHP Warning:  Undefined array key "SERVER_NAME" in /var/www/html/common.php on line 50
+[24-Dec-2025 04:23:54 Asia/Seoul] PHP Warning:  Constant _GNUBOARD_ already defined in /var/www/html/config.php on line 8
+[24-Dec-2025 04:23:54 Asia/Seoul] PHP Warning:  Undefined array key "REMOTE_ADDR" in /var/www/html/bbs/visit_insert.inc.php on line 5
+[24-Dec-2025 04:23:54 Asia/Seoul] PHP Warning:  Constant G5_URL already defined in Command line code on line 1
+[24-Dec-2025 04:23:54 Asia/Seoul] PHP Warning:  Constant G5_PATH already defined in Command line code on line 1
+[24-Dec-2025 04:24:14 Asia/Seoul] PHP Warning:  Constant _GNUBOARD_ already defined in /var/www/html/config.php on line 8
+[24-Dec-2025 04:24:14 Asia/Seoul] PHP Warning:  Undefined array key "REMOTE_ADDR" in /var/www/html/bbs/visit_insert.inc.php on line 5
+[24-Dec-2025 04:24:14 Asia/Seoul] PHP Warning:  Constant G5_URL already defined in Command line code on line 1
+[24-Dec-2025 04:24:14 Asia/Seoul] PHP Warning:  Constant G5_PATH already defined in Command line code on line 1
+[24-Dec-2025 04:44:27 Asia/Seoul] PHP Warning:  Undefined array key "SERVER_PORT" in /var/www/html/common.php on line 47
+[24-Dec-2025 04:44:27 Asia/Seoul] PHP Warning:  Undefined array key "SERVER_PORT" in /var/www/html/common.php on line 47
+[24-Dec-2025 04:44:27 Asia/Seoul] PHP Warning:  Undefined array key "SERVER_PORT" in /var/www/html/common.php on line 47
+[24-Dec-2025 04:44:27 Asia/Seoul] PHP Warning:  Undefined array key "SERVER_NAME" in /var/www/html/common.php on line 50
+[24-Dec-2025 04:44:27 Asia/Seoul] PHP Warning:  Undefined array key "REQUEST_URI" in /var/www/html/common.php on line 511
+[24-Dec-2025 04:44:27 Asia/Seoul] PHP Warning:  Undefined array key "REMOTE_ADDR" in /var/www/html/bbs/visit_insert.inc.php on line 5
+[24-Dec-2025 14:53:57 UTC] PHP Warning:  Module "intl" is already loaded in Unknown on line 0
+[24-Dec-2025 14:53:58 UTC] PHP Warning:  Module "xsl" is already loaded in Unknown on line 0
+[25-Dec-2025 00:18:32 Asia/Seoul] PHP Warning:  Undefined array key "SERVER_PORT" in /var/www/html/common.php on line 47
+[25-Dec-2025 00:18:32 Asia/Seoul] PHP Warning:  Undefined array key "SERVER_PORT" in /var/www/html/common.php on line 47
+[25-Dec-2025 00:18:32 Asia/Seoul] PHP Warning:  Undefined array key "SERVER_PORT" in /var/www/html/common.php on line 47
+[25-Dec-2025 00:18:32 Asia/Seoul] PHP Warning:  Undefined array key "SERVER_NAME" in /var/www/html/common.php on line 50
+[25-Dec-2025 00:18:32 Asia/Seoul] PHP Warning:  Undefined array key "REQUEST_URI" in /var/www/html/common.php on line 511
+[25-Dec-2025 00:18:32 Asia/Seoul] PHP Warning:  Undefined array key "REMOTE_ADDR" in /var/www/html/bbs/visit_insert.inc.php on line 5
+[25-Dec-2025 00:18:45 Asia/Seoul] PHP Warning:  Undefined array key "SERVER_PORT" in /var/www/html/common.php on line 47
+[25-Dec-2025 00:18:45 Asia/Seoul] PHP Warning:  Undefined array key "SERVER_PORT" in /var/www/html/common.php on line 47
+[25-Dec-2025 00:18:45 Asia/Seoul] PHP Warning:  Undefined array key "SERVER_PORT" in /var/www/html/common.php on line 47
+[25-Dec-2025 00:18:45 Asia/Seoul] PHP Warning:  Undefined array key "SERVER_NAME" in /var/www/html/common.php on line 50
+[25-Dec-2025 00:18:45 Asia/Seoul] PHP Warning:  Undefined array key "REQUEST_URI" in /var/www/html/common.php on line 511
+[25-Dec-2025 00:18:45 Asia/Seoul] PHP Warning:  Undefined array key "REMOTE_ADDR" in /var/www/html/bbs/visit_insert.inc.php on line 5
+[25-Dec-2025 00:24:03 Asia/Seoul] TEST LOG MESSAGE FROM CLI

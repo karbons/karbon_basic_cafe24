@@ -1,0 +1,18 @@
+Options -MultiViews -Indexes
+RewriteEngine On
+
+# 실제 파일/디렉토리면 그대로
+RewriteCond %{REQUEST_FILENAME} -f
+RewriteRule ^ - [L]
+
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+
+# /app → /app/index.html
+RewriteRule ^app(/.*)?$ /app/index.html [L]
+
+# /admin → /admin/index.html
+RewriteRule ^admin(/.*)?$ /admin/index.html [L]
+
+# /main → /main/index.html
+RewriteRule ^main(/.*)?$ /main/index.html [L]

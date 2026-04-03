@@ -1,0 +1,12 @@
+-- Example migration: Create API tokens table
+-- Place your migrations in this directory with naming: 001_description.sql, 002_description.sql, etc.
+
+-- CREATE TABLE IF NOT EXISTS api_tokens (
+--     id INT AUTO_INCREMENT PRIMARY KEY,
+--     user_id VARCHAR(50) NOT NULL,
+--     token VARCHAR(255) NOT NULL UNIQUE,
+--     expires_at DATETIME NOT NULL,
+--     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+--     INDEX idx_user_id (user_id),
+--     INDEX idx_expires (expires_at)
+-- );

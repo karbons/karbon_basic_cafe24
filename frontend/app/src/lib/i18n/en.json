@@ -1,0 +1,144 @@
+{
+  "common": {
+    "nav": {
+      "home": "Home",
+      "about": "About Us",
+      "history": "History",
+      "services": "Services",
+      "qna": "Q&A",
+      "notice": "Notices"
+    },
+    "actions": {
+      "submit": "Submit",
+      "cancel": "Cancel",
+      "save": "Save",
+      "start": "Get Started",
+      "learnMore": "Learn More",
+      "contact": "Contact Us",
+      "viewAll": "View All",
+      "download": "Download",
+      "apply": "Apply"
+    },
+    "footer": {
+      "services": "Our Services",
+      "support": "Customer Support",
+      "contact": "Contact",
+      "address": "123 Teheran-ro, Gangnam-gu, Seoul, Karbon Building 15F",
+      "phone": "02-1234-5678",
+      "email": "contact@karbonbuilder.com",
+      "copyright": "© 2026 KARBON BUILDER. All rights reserved.",
+      "terms": "Terms of Use",
+      "privacy": "Privacy Policy",
+      "emailReject": "Email Collection Prohibition"
+    }
+  },
+  "app": {
+    "hero": {
+      "title": "Modern <span class=\"text-blue-600\">Gnuboard5</span> Reborn",
+      "description": "The perfect combination of FAPI backend and Svelte 5 frontend.<br />Experience faster and more sophisticated user interactions.",
+      "startCommunity": "Start Community",
+      "viewMyInfo": "View My Info",
+      "loginNow": "Login Now",
+      "registerNow": "Register Now"
+    }
+  },
+  "home": {
+    "hero": {
+      "badge": "NEXT GENERATION BUILDER",
+      "title": "We Design the",
+      "titleHighlight": "Future of Business",
+      "description": "Karbon Builder brings your ideas to life with cutting-edge technology and sophisticated design. We will be your best partner for successful digital transformation.",
+      "ctaPrimary": "Get Started",
+      "ctaSecondary": "Learn More"
+    },
+    "features": {
+      "title": "Why Karbon Builder?",
+      "subtitle": "We think beyond simple development and focus on business growth. Discover the unique strengths that Karbon Builder offers.",
+      "speed": {
+        "title": "Fast Performance",
+        "description": "We provide overwhelming loading speed and performance using the latest technology stack."
+      },
+      "security": {
+        "title": "Strong Security",
+        "description": "Protect your valuable data with enterprise-grade security solutions."
+      },
+      "responsive": {
+        "title": "Responsive Design",
+        "description": "Deliver an optimized user experience that works perfectly on all devices."
+      }
+    },
+    "services": {
+      "title": "Our Expert Services",
+      "subtitle": "Based on experience in various industries, we propose optimized solutions.",
+      "viewAll": "View All Services",
+      "web": {
+        "title": "Web/App Development",
+        "description": "Develop high-performance websites and mobile applications tailored to business requirements.",
+        "feature1": "Custom Strategy Development",
+        "feature2": "Latest Tech Stack Applied"
+      },
+      "design": {
+        "title": "UI/UX Design",
+        "description": "Design intuitive and beautiful user-centered interfaces to enhance brand value.",
+        "feature1": "Custom Strategy Development",
+        "feature2": "Latest Tech Stack Applied"
+      },
+      "cloud": {
+        "title": "Cloud Solutions",
+        "description": "Provide stable and scalable cloud infrastructure construction and management services.",
+        "feature1": "Custom Strategy Development",
+        "feature2": "Latest Tech Stack Applied"
+      }
+    },
+    "stats": {
+      "projects": "Successful Projects",
+      "partners": "Partner Companies",
+      "experts": "Expert Staff",
+      "satisfaction": "Customer Satisfaction"
+    },
+    "cta": {
+      "title": "Start Your Project with Karbon Builder Today",
+      "subtitle": "Hesitation only delays innovation. Discover new business possibilities through consultation with experts.",
+      "consult": "Request Free Consultation",
+      "brochure": "Download Service Brochure"
+    }
+  },
+  "about": {
+    "title": "We Create New Standards",
+    "titleHighlight": "for the Digital World",
+    "description": "Since its establishment in 2015, Karbon Builder has built successful business models as a digital partner for numerous companies. We believe that technology can enrich people's lives.",
+    "mission": {
+      "title": "Our Mission",
+      "description": "Our mission is to convert complex technology into intuitive solutions that anyone can easily use, helping companies focus on their core values."
+    },
+    "vision": {
+      "title": "Our Vision",
+      "description": "We will become the most trusted partner in the global digital solutions market, leading the way in designing a better future through technological innovation."
+    },
+    "values": {
+      "title": "Core Values",
+      "subtitle": "This is how Karbon Builder works and the promise we make to our customers.",
+      "innovation": {
+        "title": "Innovation",
+        "description": "We constantly explore new technologies and apply them to business to drive innovation."
+      },
+      "insight": {
+        "title": "Insight",
+        "description": "We read market trends based on data and experience to propose optimal solutions."
+      },
+      "trust": {
+        "title": "Trust",
+        "description": "We prioritize promises to customers and maintain transparent and honest partnerships."
+      },
+      "excellence": {
+        "title": "Excellence",
+        "description": "We guarantee the highest quality with a craftsman spirit that doesn't miss even the smallest detail."
+      }
+    }
+  },
+  "errors": {
+    "permission_denied": "Permission denied.",
+    "not_found": "Page not found.",
+    "server_error": "Server error occurred. Please try again later."
+  }
+}

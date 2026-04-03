@@ -1,0 +1,21 @@
+RewriteEngine On
+RewriteBase /v1/fapi/
+
+# API 라우팅
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php [QSA,L]
+
+# 에러 응답을 JSON으로 반환
+# PHP 에러 핸들러는 index.php에서 처리하므로 여기서는 웹서버 레벨 에러만 처리
+# 404 에러는 위의 RewriteRule로 index.php로 라우팅되므로 PHP에서 처리됨
+
+# 보안: Private 파일 접근 차단 (JSON으로 반환)
+<FilesMatch "^(\.env|_common\.php)$">
+    Header set Content-Type "application/json"
+    Require all denied
+</FilesMatch>
+
+# 디렉토리 리스팅 차단
+Options -Indexes
+

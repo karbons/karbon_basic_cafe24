@@ -1,0 +1,23 @@
+RewriteEngine On
+
+# API routing
+RewriteCond %{REQUEST_URI} ^/fapi [NC]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^fapi/(.*)$ fapi/index.php [L,QSA]
+
+# General routing (Gnuboard)
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php [L,QSA]
+
+# Security
+<FilesMatch "^\.env">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+<FilesMatch "dbconfig\.php">
+    Order allow,deny
+    Deny from all
+</FilesMatch>

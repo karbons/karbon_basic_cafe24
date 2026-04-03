@@ -1,0 +1,31 @@
+# General
+.DS_Store
+.env
+.env.local
+.env.*.local
+node_modules/
+dist/
+build/
+.svelte-kit/
+.vercel/
+.output/
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Gunuboard
+data/
+api/.env
+api/data/
+api/logs/
+
+# Build artifacts
+frontend/app/build/
+frontend/admin/build/
+frontend/main/build/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo

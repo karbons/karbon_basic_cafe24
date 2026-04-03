@@ -1,0 +1,15 @@
+# robots.txt for 그누보드5
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://example.com/sitemap.xml
+
+# Disallow admin and auth pages
+Disallow: /admin/
+Disallow: /auth/
+Disallow: /member/
+
+# Allow important content
+Allow: /bbs/
+Allow: /content/

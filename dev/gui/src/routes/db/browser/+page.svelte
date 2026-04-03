@@ -1,0 +1,1 @@
+<h2 class="text-2xl font-bold mb-4">Data Browser</h2><div class="bg-white rounded-xl shadow-sm border p-8 flex flex-col items-center justify-center min-h-[300px] text-gray-400"><span class="text-6xl mb-4">🔎</span><p>Database browser module is under development.</p></div>

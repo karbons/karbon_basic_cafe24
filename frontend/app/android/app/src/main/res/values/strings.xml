@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">gnu-karbon</string>
+    <string name="title_activity_main">gnu-karbon</string>
+    <string name="package_name">com.gnuboard.karbon</string>
+    <string name="custom_url_scheme">com.gnuboard.karbon</string>
+</resources>

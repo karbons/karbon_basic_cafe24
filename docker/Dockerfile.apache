@@ -1,0 +1,54 @@
+FROM php:8.1-apache
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+  build-essential \
+  autoconf \
+  libtool \
+  pkg-config \
+  libpng-dev \
+  libjpeg-dev \
+  libfreetype6-dev \
+  libwebp-dev \
+  libzip-dev \
+  default-mysql-client \
+  libxml2-dev \
+  libxslt1-dev \
+  libonig-dev \
+  libicu-dev \
+  libcurl4-openssl-dev \
+  libssl-dev \
+  gettext \
+  git \
+  wget \
+  unzip \
+  && rm -rf /var/lib/apt/lists/*
+
+RUN docker-php-ext-install -j$(nproc) \
+  mysqli \
+  pdo_mysql \
+  mbstring \
+  xml \
+  opcache
+
+RUN docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp \
+  && docker-php-ext-install -j$(nproc) gd
+
+RUN docker-php-ext-configure zip \
+  && docker-php-ext-install -j$(nproc) zip
+
+RUN docker-php-ext-install -j$(nproc) xsl \
+  && docker-php-ext-install -j$(nproc) intl \
+  && docker-php-ext-install -j$(nproc) gettext
+
+RUN pecl install redis && docker-php-ext-enable redis
+RUN pecl install apcu && docker-php-ext-enable apcu
+
+RUN a2enmod rewrite
+
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+
+WORKDIR /var/www/html
+
+RUN chown -R www-data:www-data /var/www/html
+
+EXPOSE 80

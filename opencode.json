@@ -1,0 +1,19 @@
+{
+    "$schema": "https://opencode.ai/config.json",
+    "model": "llama-cpp-local/qwen2.5-14b-coder",
+    "provider": {
+        "llama-cpp-local": {
+            "npm": "@ai-sdk/openai-compatible",
+            "name": "Carbon Builder - 14B Coder Node",
+            "options": {
+                "baseURL": "http://127.0.0.1:8080/v1",
+                "apiKey": "sk-carbon-builder-key"
+            },
+            "models": {
+                "qwen2.5-14b-coder": {
+                    "name": "Qwen 2.5 Coder 14B (Fast & Smart)"
+                }
+            }
+        }
+    }
+}
