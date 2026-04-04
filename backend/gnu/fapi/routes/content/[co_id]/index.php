@@ -4,8 +4,8 @@ function GET($co_id)
 {
     global $g5;
 
-    // 내용관리 조회
-    $content = sqlx::query("select * from {$g5['content_table']} where co_id = ?", [$co_id])
+    $content = sqlx::query("select * from {$g5['content_table']} where co_id = ?")
+        ->bind($co_id)
         ->fetch_optional();
 
     if (!$content || !$content['co_id']) {

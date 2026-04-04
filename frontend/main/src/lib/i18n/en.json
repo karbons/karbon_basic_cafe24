@@ -17,7 +17,10 @@
       "contact": "Contact Us",
       "viewAll": "View All",
       "download": "Download",
-      "apply": "Apply"
+      "apply": "Apply",
+      "login": "Login",
+      "register": "Register",
+      "logout": "Logout"
     },
     "footer": {
       "services": "Our Services",
@@ -106,29 +109,154 @@
       "description": "We will become the most trusted partner in the global digital solutions market, leading the way in designing a better future through technological innovation."
     },
     "values": {
-      "title": "Core Values",
-      "subtitle": "This is how Karbon Builder works and the promise we make to our customers.",
-      "innovation": {
-        "title": "Innovation",
-        "description": "We constantly explore new technologies and apply them to business to drive innovation."
-      },
-      "insight": {
-        "title": "Insight",
-        "description": "We read market trends based on data and experience to propose optimal solutions."
-      },
-      "trust": {
-        "title": "Trust",
-        "description": "We prioritize promises to customers and maintain transparent and honest partnerships."
-      },
-      "excellence": {
-        "title": "Excellence",
-        "description": "We guarantee the highest quality with a craftsman spirit that doesn't miss even the smallest detail."
+        "title": "Core Values",
+        "subtitle": "How Karbon Builder works and the promise we make to our customers.",
+        "innovation": {
+          "title": "Innovation",
+          "description": "We constantly explore new technologies and apply them to business to drive innovation."
+        },
+        "insight": {
+          "title": "Insight",
+          "description": "We read market trends based on data and experience to propose optimal solutions."
+        },
+        "trust": {
+          "title": "Trust",
+          "description": "We prioritize promises to customers and maintain transparent and honest partnerships."
+        },
+        "excellence": {
+          "title": "Excellence",
+          "description": "We guarantee the highest quality with a craftsman spirit that doesn't miss even the smallest detail."
+        }
       }
+    },
+    "history": {
+      "title": "Making Imagination Reality",
+      "titleHighlight": "Our Journey",
+      "description": "Since 2015, Karbon Builder has been writing the history of digital innovation with unstoppable challenges.",
+      "items": [
+        {
+          "year": "2024",
+          "events": [
+            "Launched global AI solution 'Karbon AI'",
+            "Won Asia-Pacific Innovative Technology Award",
+            "Exceeded $50M in annual revenue"
+          ]
+        },
+        {
+          "year": "2023",
+          "events": [
+            "Achieved 100 enterprise digital transformation projects",
+            "Established Silicon Valley branch",
+            "Obtained ISO 27001 Information Security Certification"
+          ]
+        },
+        {
+          "year": "2021",
+          "events": [
+            "Unveiled Next-Gen Builder Platform 2.0",
+            "Secured Series B funding ($15M scale)",
+            "Selected as a Technology Innovation SME (Inno-Biz)"
+          ]
+        },
+        {
+          "year": "2018",
+          "events": [
+            "Relocated and expanded Seoul R&D Center",
+            "Exceeded 500 cumulative partner companies",
+            "Won Grand Prize at Korea Web Awards"
+          ]
+        },
+        {
+          "year": "2015",
+          "events": [
+            "Karbon Builder Corporation Established",
+            "The Joy of Beginning, First Project Secured"
+          ]
+        }
+      ]
+    },
+    "services": {
+      "title": "Integrated Solutions for",
+      "titleHighlight": "Business Growth",
+      "description": "Experience premium services throughout the business process, from planning to design, development, and operation.",
+      "list": [
+        {
+          "id": "web",
+          "title": "Custom Web Solutions",
+          "subtitle": "Web apps with overwhelming performance",
+          "description": "We build high-performance websites and web applications that process complex business logic optimized for user requirements.",
+          "features": ["React/Next.js based high-performance architecture", "SEO and Web Standard Compliance", "Cloud-native environment optimization"]
+        },
+        {
+          "id": "design",
+          "title": "Strategic UI/UX Design",
+          "subtitle": "Sophisticated design that enhances brand value",
+          "description": "We design strategic user experiences that go beyond simple beauty to achieve business goals.",
+          "features": ["Data-driven user behavior analysis", "Design system reflecting brand identity", "Responsive interface for all devices"]
+        },
+        {
+          "id": "cloud",
+          "title": "Cloud Infrastructure",
+          "subtitle": "Stable and scalable infrastructure operation",
+          "description": "We build the best cloud environment to respond flexibly to traffic changes and provide 24/7 uninterrupted service.",
+          "features": ["AWS/GCP/Azure Hybrid Cloud Construction", "CI/CD Automation and DevOps Support", "24/7 Monitoring and Auto-Recovery"]
+        }
+      ],
+      "process": {
+        "title": "Collaboration Process",
+        "description": "We increase the success of projects through transparent and efficient communication.",
+        "steps": [
+          { "title": "Consulting", "desc": "Requirement analysis and strategy" },
+          { "title": "Planning", "desc": "Detailed features and UI/UX design" },
+          { "title": "Development", "desc": "Rapid prototyping and quality code" },
+          { "title": "Operation", "desc": "Stable launch and ongoing management" }
+        ]
+      }
+    },
+    "notice": {
+      "title": "Latest News",
+      "description": "Stay updated with Karbon Builder's latest news and important announcements.",
+      "table": {
+        "no": "No.",
+        "title": "Title",
+        "author": "Author",
+        "date": "Date"
+      },
+      "list": [
+        { "id": 1, "title": "Karbon Builder Website Renewal Notice", "date": "2026-04-01", "author": "Admin" },
+        { "id": 2, "title": "2026 First Half System Maintenance Notice", "date": "2026-03-15", "author": "Admin" },
+        { "id": 3, "title": "Privacy Policy Revision Announcement", "date": "2026-02-28", "author": "Admin" },
+        { "id": 4, "title": "New 'Karbon AI' Beta Test Recruitment", "date": "2026-02-10", "author": "Ops Team" }
+      ]
+    },
+    "qna": {
+      "title": "Frequently Asked Questions",
+      "description": "Find quick answers to common questions about our services.",
+      "contactTitle": "Still Have Questions?",
+      "contactDesc": "If you can't find your answer, feel free to contact us directly.",
+      "contactBtn": "1:1 Inquiry",
+      "list": [
+        {
+          "question": "How long does a project typically take?",
+          "answer": "It depends on the scale, but general business sites take 4-8 weeks, while complex platforms take 3+ months. We provide a detailed schedule during consultation."
+        },
+        {
+          "question": "Do you provide maintenance services?",
+          "answer": "Yes, we offer maintenance packages for stable operation, including security updates, bug fixes, and regular performance optimization."
+        },
+        {
+          "question": "Is custom design possible?",
+          "answer": "Karbon Builder avoids templates and provides 100% custom design tailored to the client's brand identity."
+        },
+        {
+          "question": "Do you support multi-language for global services?",
+          "answer": "Yes, we build global services with built-in multi-language engines and optimized UI for each language."
+        }
+      ]
+    },
+    "errors": {
+      "permission_denied": "Permission denied.",
+      "not_found": "Page not found.",
+      "server_error": "Server error occurred. Please try again later."
     }
-  },
-  "errors": {
-    "permission_denied": "Permission denied.",
-    "not_found": "Page not found.",
-    "server_error": "Server error occurred. Please try again later."
   }
-}

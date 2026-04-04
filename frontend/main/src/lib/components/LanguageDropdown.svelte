@@ -1,38 +1,60 @@
 <script lang="ts">
-  import { locale } from 'svelte-i18n';
-  import { base } from '$app/paths';
-  import { onMount } from 'svelte';
-  
-  let currentLang = $state('ko');
-  
-  onMount(() => {
-    const unsubscribe = locale.subscribe((value) => {
-      if (value) {
-        currentLang = value;
-      }
-    });
-    
-    return () => {
-      unsubscribe();
-    };
+  import { locale } from "svelte-i18n";
+  import { base } from "$app/paths";
+  import { page } from "$app/state";
+
+  let currentLang = $state("ko");
+
+  // 현재 언어 추출
+  $effect(() => {
+    const path = page.url.pathname;
+    // /main/ko/... 또는 /ko/... 패턴 매칭
+    const match =
+      path.match(/^\/main\/(ko|en)\//) || path.match(/^\/(ko|en)\//);
+    if (match) {
+      currentLang = match[1];
+    }
   });
-  
-  function changeLanguage(lang: string) {
-    if (lang === currentLang) return;
-    
-    const currentPath = window.location.pathname;
-    const newPath = currentPath.replace(/\/(ko|en)\//, `/${lang}/`);
-    
-    if (newPath !== currentPath) {
+
+  function handleChange(event: Event) {
+    const target = event.target as HTMLSelectElement;
+    const lang = target.value;
+
+    const currentPath = page.url.pathname;
+
+    // 경로에 /main/ 언어 prefix가 있는 경우 (예: /main/ko/about)
+    if (currentPath.match(/^\/main\/(ko|en)\//)) {
+      const newPath = currentPath.replace(
+        /^\/main\/(ko|en)\//,
+        `/main/${lang}/`,
+      );
       window.location.href = newPath;
+    }
+    // 경로에 언어만 있는 경우 (예: /ko/about)
+    else if (currentPath.match(/^\/(ko|en)\//)) {
+      const newPath = currentPath.replace(/^\/(ko|en)\//, `/${lang}/`);
+      window.location.href = newPath;
+    }
+    // 루트 경로인 경우
+    else if (currentPath === "/" || currentPath === "") {
+      window.location.href = "/main/ko/";
+    }
+    // 그 외 (예: /main 또는 /about)
+    else {
+      let newPath = currentPath;
+      if (newPath.startsWith("/main")) {
+        newPath = newPath.replace("/main", "");
+      }
+
+      window.location.href = `/${lang}${newPath}`;
     }
   }
 </script>
 
 <div class="language-dropdown">
   <select
-    bind:value={currentLang}
-    onchange={(e) => changeLanguage(e.currentTarget.value)}
+    value={currentLang}
+    onchange={handleChange}
     class="px-3 py-2 border border-secondary-200 rounded-lg text-sm bg-white text-secondary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent cursor-pointer"
   >
     <option value="ko">한국어</option>

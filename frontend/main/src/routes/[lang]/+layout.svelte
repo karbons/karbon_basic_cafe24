@@ -2,16 +2,16 @@
   import { onMount } from 'svelte';
   import { page } from '$app/state';
   import { _, isLoading, waitLocale } from 'svelte-i18n';
-  import { Menu, X, ChevronRight, Facebook, Instagram, Youtube, Mail, Phone, MapPin } from 'lucide-svelte';
+  import { Facebook, Instagram, Youtube, Mail, Phone, MapPin } from 'lucide-svelte';
   import favicon from '$lib/assets/favicon.svg';
   import { base } from '$app/paths';
-  import LanguageDropdown from '$lib/components/LanguageDropdown.svelte';
   import { initLocale, initLocaleAndWait } from '$lib/i18n';
+  import { setMenus } from '$lib/store/menu';
+  import { getMenus } from '$lib/api/menu';
+  import { Header } from '$lib/skin/layout/header';
 
   let { children } = $props();
   
-  let isMenuOpen = $state(false);
-  let isScrolled = $state(false);
   let i18nReady = $state(false);
   
   const langFromPath = page.url.pathname.split('/')[2] || 'ko';
@@ -25,19 +25,13 @@
     await waitLocale();
     i18nReady = true;
     
-    const handleScroll = () => {
-      isScrolled = window.scrollY > 20;
-    };
-    window.addEventListener('scroll', handleScroll);
+    try {
+      const menus = await getMenus('pc');
+      setMenus(menus, langFromPath);
+    } catch (e) {
+      console.warn('Failed to load menus:', e);
+    }
   });
-
-  function toggleMenu() {
-    isMenuOpen = !isMenuOpen;
-  }
-
-  function closeMenu() {
-    isMenuOpen = false;
-  }
 </script>
 
 <svelte:head>
@@ -55,109 +49,7 @@
   </div>
 {:else}
 <div class="min-h-screen flex flex-col">
-  <header 
-    class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 {isScrolled ? 'bg-white/90 backdrop-blur-md shadow-sm py-3' : 'bg-transparent py-5'}"
-  >
-    <div class="container-custom flex items-center justify-between">
-      <a href="{base}{withLang('/')}" class="text-2xl font-bold text-primary-600 tracking-tight" onclick={closeMenu}>
-        KARBON<span class="text-secondary-900">BUILDER</span>
-      </a>
-
-      <nav class="hidden md:flex items-center space-x-8">
-        <a 
-          href="{base}{withLang('/about')}" 
-          class="text-sm font-medium transition-colors hover:text-primary-600 {page.url.pathname.includes('/about') ? 'text-primary-600' : 'text-secondary-700'}"
-        >
-          {$_('common.nav.about')}
-        </a>
-        <a 
-          href="{base}{withLang('/history')}" 
-          class="text-sm font-medium transition-colors hover:text-primary-600 {page.url.pathname.includes('/history') ? 'text-primary-600' : 'text-secondary-700'}"
-        >
-          {$_('common.nav.history')}
-        </a>
-        <a 
-          href="{base}{withLang('/services')}" 
-          class="text-sm font-medium transition-colors hover:text-primary-600 {page.url.pathname.includes('/services') ? 'text-primary-600' : 'text-secondary-700'}"
-        >
-          {$_('common.nav.services')}
-        </a>
-        <a 
-          href="{base}{withLang('/qna')}" 
-          class="text-sm font-medium transition-colors hover:text-primary-600 {page.url.pathname.includes('/qna') ? 'text-primary-600' : 'text-secondary-700'}"
-        >
-          {$_('common.nav.qna')}
-        </a>
-        <a 
-          href="{base}{withLang('/notice')}" 
-          class="text-sm font-medium transition-colors hover:text-primary-600 {page.url.pathname.includes('/notice') ? 'text-primary-600' : 'text-secondary-700'}"
-        >
-          {$_('common.nav.notice')}
-        </a>
-        <a href="{base}{withLang('/qna')}" class="btn-primary py-2 px-5 text-sm">{$_('common.actions.contact')}</a>
-        <LanguageDropdown />
-      </nav>
-
-      <button class="md:hidden p-2 text-secondary-900" onclick={toggleMenu} aria-label="Toggle Menu">
-        {#if isMenuOpen}
-          <X size={24} />
-        {:else}
-          <Menu size={24} />
-        {/if}
-      </button>
-    </div>
-  </header>
-
-  {#if isMenuOpen}
-    <div 
-      class="fixed inset-0 z-40 bg-white pt-24 px-6 md:hidden animate-fade-in-up"
-    >
-      <nav class="flex flex-col space-y-6">
-        <a 
-          href="{base}{withLang('/about')}" 
-          class="text-xl font-semibold text-secondary-900 flex items-center justify-between border-b border-secondary-100 pb-4"
-          onclick={closeMenu}
-        >
-          {$_('common.nav.about')}
-          <ChevronRight size={20} class="text-secondary-400" />
-        </a>
-        <a 
-          href="{base}{withLang('/history')}" 
-          class="text-xl font-semibold text-secondary-900 flex items-center justify-between border-b border-secondary-100 pb-4"
-          onclick={closeMenu}
-        >
-          {$_('common.nav.history')}
-          <ChevronRight size={20} class="text-secondary-400" />
-        </a>
-        <a 
-          href="{base}{withLang('/services')}" 
-          class="text-xl font-semibold text-secondary-900 flex items-center justify-between border-b border-secondary-100 pb-4"
-          onclick={closeMenu}
-        >
-          {$_('common.nav.services')}
-          <ChevronRight size={20} class="text-secondary-400" />
-        </a>
-        <a 
-          href="{base}{withLang('/qna')}" 
-          class="text-xl font-semibold text-secondary-900 flex items-center justify-between border-b border-secondary-100 pb-4"
-          onclick={closeMenu}
-        >
-          {$_('common.nav.qna')}
-          <ChevronRight size={20} class="text-secondary-400" />
-        </a>
-        <a 
-          href="{base}{withLang('/notice')}" 
-          class="text-xl font-semibold text-secondary-900 flex items-center justify-between border-b border-secondary-100 pb-4"
-          onclick={closeMenu}
-        >
-          {$_('common.nav.notice')}
-          <ChevronRight size={20} class="text-secondary-400" />
-        </a>
-        <a href="{base}{withLang('/qna')}" class="btn-primary w-full py-4 text-lg" onclick={closeMenu}>{$_('common.actions.contact')}</a>
-        <LanguageDropdown />
-      </nav>
-    </div>
-  {/if}
+  <Header lang={langFromPath} />
 
   <main class="flex-grow">
     {@render children()}
