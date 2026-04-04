@@ -3,7 +3,7 @@
 	import { onMount } from "svelte";
 	import { page } from "$app/stores";
 	import { goto } from "$app/navigation";
-	import { pageTitle } from "$lib/store/ui";
+	import { pageTitle, setMenus } from "$lib/store";
 	import Header from "$lib/skin/layout/Header.svelte";
 	import BottomNav from "$lib/skin/layout/BottomNav.svelte";
 	import { ModeWatcher } from "mode-watcher";
@@ -12,11 +12,12 @@
 	import { isLoading, locale, waitLocale } from 'svelte-i18n';
 	import { initLocale } from '$lib/i18n';
 	import { page as pageData } from '$app/state';
+	import { getMenus } from '$lib/api';
 
 	let { children } = $props();
 	let i18nReady = $state(false);
 
-	// 헤더를 숨릴 페이지 목록
+	// 헤더를 숨킬 페이지 목록
 	const hideHeaderPages = ["/auth/login", "/auth/register"];
 	const isHideHeader = $derived(hideHeaderPages.includes(pageData.url.pathname));
 
@@ -42,6 +43,14 @@
 		initLocale(langFromPath);
 		await waitLocale();
 		i18nReady = true;
+
+		// Fetch menus from API
+		try {
+			const menus = await getMenus('pc');
+			setMenus(menus);
+		} catch (e) {
+			console.warn('Failed to load menus:', e);
+		}
 	});
 </script>
 
