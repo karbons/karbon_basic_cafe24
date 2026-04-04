@@ -1,11 +1,6 @@
+import tailwindcss from '@tailwindcss/vite';
 import { sveltekit } from '@sveltejs/kit/vite';
 import { defineConfig, loadEnv } from 'vite';
-import { readFileSync } from 'fs';
-import { fileURLToPath } from 'url';
-import { dirname, resolve } from 'path';
-
-const __dirname = dirname(fileURLToPath(import.meta.url));
-const packageJson = JSON.parse(readFileSync(resolve(__dirname, 'package.json'), 'utf-8'));
 
 export default defineConfig(({ mode }) => {
 	const env = loadEnv(mode, process.cwd(), '');
@@ -13,10 +8,7 @@ export default defineConfig(({ mode }) => {
 	const apiTarget = env.VITE_API_TARGET || 'https://karbon.kr';
 
 	return {
-		plugins: [sveltekit()],
-		define: {
-			'__APP_VERSION__': JSON.stringify(packageJson.version)
-		},
+		plugins: [tailwindcss(), sveltekit()],
 		server: {
 			proxy: {
 				[apiBaseUrl]: {
@@ -27,9 +19,6 @@ export default defineConfig(({ mode }) => {
 					cookieDomainRewrite: 'localhost',
 					cookiePathRewrite: '/'
 				}
-			},
-			fs: {
-				allow: ['..']
 			}
 		}
 	};

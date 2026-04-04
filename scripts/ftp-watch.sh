@@ -24,6 +24,7 @@ show_help() {
     echo ""
     echo -e "${YELLOW}동기화 규칙:${NC}"
     echo -e "  - 일반 파일: 로컬 → 서버 (업로드)"
+    echo -e "  - backend/v1/fapi 변경 시 backend/gnu/fapi 로컬 동기화"
     echo -e "  - data/: 제외 (DB 설정)"
     echo -e "  - fapi/logs/: 제외 (서버 로그)"
     echo ""
@@ -64,6 +65,21 @@ test_connection() {
     fi
 }
 
+sync_fapi_to_gnu() {
+    local file_path="$1"
+    local relative_path="${file_path#$WATCH_DIR/}"
+    
+    if [[ "$relative_path" == fapi/* ]]; then
+        local target_path="$PROJECT_ROOT/backend/gnu/$relative_path"
+        local target_dir=$(dirname "$target_path")
+        
+        mkdir -p "$target_dir"
+        cp "$file_path" "$target_path"
+        
+        echo -e "${YELLOW}⇄ 로컬 동기화: ${NC}backend/gnu/$relative_path"
+    fi
+}
+
 upload_file() {
     local file_path="$1"
     local relative_path="${file_path#$WATCH_DIR/}"
@@ -71,6 +87,8 @@ upload_file() {
     local remote_dir=$(dirname "$remote_file")
     
     echo -e "${BLUE}↑ 업로드: ${NC}$relative_path"
+    
+    sync_fapi_to_gnu "$file_path"
     
     lftp -p "${SFTP_PORT:-22}" -u "$SFTP_USER","$SFTP_PASS" sftp://"$SFTP_HOST" <<EOF 2>&1
 set net:timeout 30
@@ -88,6 +106,12 @@ delete_file() {
     local remote_file="$SFTP_PATH/v1/$relative_path"
     
     echo -e "${YELLOW}↓ 삭제: ${NC}$relative_path"
+    
+    if [[ "$relative_path" == fapi/* ]]; then
+        local target_path="$PROJECT_ROOT/backend/gnu/$relative_path"
+        rm -f "$target_path"
+        echo -e "${YELLOW}⇄ 로컬 삭제: ${NC}backend/gnu/$relative_path"
+    fi
     
     lftp -p "${SFTP_PORT:-22}" -u "$SFTP_USER","$SFTP_PASS" sftp://"$SFTP_HOST" <<EOF 2>&1
 rm "$remote_file"

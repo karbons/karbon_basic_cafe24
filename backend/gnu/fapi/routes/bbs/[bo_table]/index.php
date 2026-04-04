@@ -125,7 +125,7 @@ function GET($bo_table)
             'wr_num' => $row['wr_num'],
             'wr_reply' => $row['wr_reply'],
             'wr_subject' => $row['wr_subject'],
-            'wr_content' => $row['wr_content'],
+            'wr_content' => replace_localhost_urls($row['wr_content'], G5_URL),
             'wr_name' => $row['wr_name'],
             'wr_datetime' => $row['wr_datetime'],
             'wr_hit' => (int) $row['wr_hit'],

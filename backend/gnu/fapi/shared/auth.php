@@ -141,10 +141,10 @@ function auth_set_token_cookie($token, $type = 'access', $expiresIn = 900) {
     $options = [
         'expires' => time() + $expiresIn,
         'path' => '/',
-        'domain' => getenv('COOKIE_DOMAIN') ?: '',
-        'secure' => (bool)getenv('HTTPS_ONLY'),
+        'domain' => getenv('APP_COOKIE_DOMAIN') ?: '',
+        'secure' => (bool)getenv('APP_HTTPS_ONLY'),
         'httponly' => true,
-        'samesite' => getenv('COOKIE_SAMESITE') ?: 'Lax'
+        'samesite' => getenv('APP_COOKIE_SAMESITE') ?: 'Lax'
     ];
     setcookie($name, $token, $options);
 }
@@ -156,10 +156,10 @@ function auth_clear_cookies() {
     $options = [
         'expires' => time() - 3600,
         'path' => '/',
-        'domain' => getenv('COOKIE_DOMAIN') ?: '',
-        'secure' => (bool)getenv('HTTPS_ONLY'),
+        'domain' => getenv('APP_COOKIE_DOMAIN') ?: '',
+        'secure' => (bool)getenv('APP_HTTPS_ONLY'),
         'httponly' => true,
-        'samesite' => getenv('COOKIE_SAMESITE') ?: 'Lax'
+        'samesite' => getenv('APP_COOKIE_SAMESITE') ?: 'Lax'
     ];
     setcookie(auth_get_cookie_name('access'), '', $options);
     setcookie(auth_get_cookie_name('refresh'), '', $options);

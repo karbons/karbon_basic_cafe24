@@ -73,7 +73,7 @@ function GET($bo_table)
             'wr_parent' => $row['wr_parent'],
             'mb_id' => $row['mb_id'],
             'wr_name' => $row['wr_name'],
-            'wr_content' => $can_view ? $row['wr_content'] : '비밀 댓글입니다.',
+            'wr_content' => $can_view ? replace_localhost_urls($row['wr_content'], G5_URL) : '비밀 댓글입니다.',
             'wr_datetime' => $row['wr_datetime'],
             'wr_option' => $row['wr_option'],
             'wr_comment' => $row['wr_comment'],

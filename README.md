@@ -3,7 +3,7 @@
 
 
 ## 프로젝트 구조
-
+```
 karbon_basic_cafe24/
 ├── backend/                # 백엔드 관련
 │   ├── v1/                # 그누보드5 + FAPI 통합형 (Cafe24 배포용)
@@ -20,7 +20,7 @@ karbon_basic_cafe24/
 │   └── doc/               # 상세 가이드 문서
 ├── docs/                  # 프로젝트 기술 문서
 └── .env                   # 배포 및 개발 환경 통합 설정
-
+```
 ## 주요 기능
 
 ### FAPI (File API)

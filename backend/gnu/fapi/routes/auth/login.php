@@ -30,10 +30,32 @@ function POST()
 
     $accessMtime = Config::get('jwt.access_mtime', 15);
     $refreshDate = Config::get('jwt.refresh_date', 30);
-    set_access_token_cookie($accessToken, $accessMtime * 60);
     set_refresh_token_cookie($refreshToken, $refreshDate * 86400);
 
-    // Firebase Custom Token 생성 (채팅용)
+    $deviceId = $data['device_id'] ?? '';
+    if (empty($deviceId)) {
+        $deviceId = bin2hex(random_bytes(16));
+    }
+    $cookieDomain = getenv('APP_COOKIE_DOMAIN') ?: '';
+    setcookie('sapi_device_id', $deviceId, [
+        'expires' => time() + (86400 * 365),
+        'path' => '/',
+        'domain' => $cookieDomain,
+        'secure' => (bool)getenv('APP_HTTPS_ONLY'),
+        'httponly' => false,
+        'samesite' => getenv('APP_COOKIE_SAMESITE') ?: 'Lax'
+    ]);
+
+    $csrfToken = bin2hex(random_bytes(32));
+    setcookie('sapi_csrf_token', $csrfToken, [
+        'expires' => 0,
+        'path' => '/',
+        'domain' => $cookieDomain,
+        'secure' => (bool)getenv('APP_HTTPS_ONLY'),
+        'httponly' => false,
+        'samesite' => 'Strict'
+    ]);
+
     $firebaseToken = null;
     if (firebase_is_enabled()) {
         $firebaseToken = firebase_create_custom_token($mb['mb_id'], [
@@ -52,7 +74,10 @@ function POST()
             'mb_memo_cnt' => $mb['mb_memo_cnt'] ?? 0,
             'mb_scrap_cnt' => $mb['mb_scrap_cnt'] ?? 0
         ],
-        'firebase_token' => $firebaseToken
+        'firebase_token' => $firebaseToken,
+        'access_token' => $accessToken,
+        'csrf_token' => $csrfToken,
+        'device_id' => $deviceId
     ], '로그인 성공');
 }
 

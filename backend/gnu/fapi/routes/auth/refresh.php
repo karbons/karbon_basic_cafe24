@@ -31,9 +31,16 @@ function POST() {
         // 새 Access Token 생성
         $newAccessToken = Auth::generateAccessToken($member);
         
-        // 새 Access Token을 HTTP Only Cookie로 설정
-        $accessMtime = config('jwt.access_mtime', 15);
-        Auth::setAccessTokenCookie($newAccessToken, $accessMtime * 60);
+        $csrfToken = bin2hex(random_bytes(32));
+        $cookieDomain = getenv('APP_COOKIE_DOMAIN') ?: '';
+        setcookie('sapi_csrf_token', $csrfToken, [
+            'expires' => 0,
+            'path' => '/',
+            'domain' => $cookieDomain,
+            'secure' => (bool)getenv('APP_HTTPS_ONLY'),
+            'httponly' => false,
+            'samesite' => 'Strict'
+        ]);
         
         json_return([
             'mb' => [
@@ -42,7 +49,9 @@ function POST() {
                 'mb_nick' => $member['mb_nick'],
                 'mb_level' => $member['mb_level'],
                 'mb_point' => $member['mb_point']
-            ]
+            ],
+            'access_token' => $newAccessToken,
+            'csrf_token' => $csrfToken
         ], 200, '00000', '토큰이 갱신되었습니다.');
         
     } catch (Exception $e) {

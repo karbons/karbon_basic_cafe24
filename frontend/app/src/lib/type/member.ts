@@ -22,5 +22,8 @@ export interface LoginRequest {
 export interface LoginResponse {
     mb: Member;
     firebase_token?: string | null;
+    access_token?: string;
+    csrf_token?: string;
+    device_id?: string;
 }
 

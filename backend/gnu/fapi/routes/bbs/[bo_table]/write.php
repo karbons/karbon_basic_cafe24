@@ -54,7 +54,6 @@ function POST($bo_table)
             $sql = "select max(wr_num) as max_wr_num from {$write_table}";
             $max_wr_num = sqlx::query($sql)->fetch_scalar();
             $wr_num = (int) $max_wr_num + 1;
-            $wr_reply = '';
 
             $wr_name = $is_guest ? $data['wr_name'] : $member['mb_name'];
             $mb_id = $is_guest ? '' : $member['mb_id'];
@@ -79,8 +78,10 @@ function POST($bo_table)
             $sql = "insert into {$write_table}
                     set wr_num = ?,
                         wr_reply = '',
+                        wr_comment_reply = '',
                         wr_parent = ?,
                         wr_is_comment = 0,
+                        wr_comment = 0,
                         wr_subject = ?,
                         wr_content = ?,
                         wr_name = ?,
@@ -92,7 +93,19 @@ function POST($bo_table)
                         wr_last = ?,
                         wr_ip = ?,
                         wr_option = ?,
-                        ca_name = ?";
+                        ca_name = ?,
+                        wr_seo_title = '',
+                        wr_link1 = '',
+                        wr_link2 = '',
+                        wr_link1_hit = 0,
+                        wr_link2_hit = 0,
+                        wr_hit = 0,
+                        wr_good = 0,
+                        wr_nogood = 0,
+                        wr_facebook_user = '',
+                        wr_twitter_user = '',
+                        wr_1 = '', wr_2 = '', wr_3 = '', wr_4 = '', wr_5 = '',
+                        wr_6 = '', wr_7 = '', wr_8 = '', wr_9 = '', wr_10 = ''";
 
             $wr_id = sqlx::query($sql)
                 ->bind($wr_num)

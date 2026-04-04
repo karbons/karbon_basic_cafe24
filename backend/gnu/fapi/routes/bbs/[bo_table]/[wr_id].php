@@ -1,5 +1,4 @@
 <?php
-// 파일 정보를 API 용 배열로 변환
 function format_files_for_api($bo_table, $wr_id)
 {
     global $g5;
@@ -196,7 +195,7 @@ function GET($bo_table, $wr_id)
         'write' => [
             'wr_id' => $write['wr_id'],
             'wr_subject' => $write['wr_subject'],
-            'wr_content' => $write['wr_content'],
+            'wr_content' => replace_localhost_urls($write['wr_content'], G5_URL),
             'wr_name' => $write['wr_name'],
             'mb_id' => $write['mb_id'],
             'wr_datetime' => $write['wr_datetime'],

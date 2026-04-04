@@ -208,6 +208,37 @@ if (!function_exists('get_board_db')) {
     }
 }
 
+if (!function_exists('get_write')) {
+    function get_write($table, $wr_id, $is_cache = false)
+    {
+        $row = sqlx::query("SELECT * FROM {$table} WHERE wr_id = ? LIMIT 1")
+            ->bind((int) $wr_id)
+            ->fetch_optional();
+        return $row ?: [];
+    }
+}
+
+if (!function_exists('get_member')) {
+    function get_member($mb_id, $fields = '*')
+    {
+        global $g5;
+        $row = sqlx::query("SELECT {$fields} FROM {$g5['member_table']} WHERE mb_id = ? LIMIT 1")
+            ->bind($mb_id)
+            ->fetch_optional();
+        return $row ?: [];
+    }
+}
+
+if (!function_exists('replace_localhost_urls')) {
+    function replace_localhost_urls($content, $domain)
+    {
+        if (empty($content) || empty($domain)) {
+            return $content;
+        }
+        return str_replace('http://localhost', $domain, $content);
+    }
+}
+
 if (!function_exists('get_sql_search')) {
     function get_sql_search($sca, $sfl, $stx, $sop = 'and')
     {
@@ -307,4 +338,12 @@ if (!function_exists('get_encrypt_string')) {
     {
         return password_hash($str, PASSWORD_DEFAULT);
     }
+}
+
+if (!defined('G5_DIR_PERMISSION')) {
+    define('G5_DIR_PERMISSION', 0755);
+}
+
+if (!defined('G5_FILE_PERMISSION')) {
+    define('G5_FILE_PERMISSION', 0644);
 }
