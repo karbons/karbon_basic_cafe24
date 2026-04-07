@@ -31,5 +31,6 @@ frontend/main/build/
 
 # ai agent setting
 opencode.json
+oh-my-openagent.json
 .opencode/ 
 .sisyphus/

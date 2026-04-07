@@ -1,17 +1,19 @@
 {
     "$schema": "https://opencode.ai/config.json",
-    "model": "llama-cpp-local/qwen2.5-14b-coder",
+    "model": "ollama-local/gemma4:26b-a4b-it-q4_K_M",
     "provider": {
-        "llama-cpp-local": {
+        "ollama-local": {
             "npm": "@ai-sdk/openai-compatible",
-            "name": "Carbon Builder - 14B Coder Node",
+            "name": "Ollama Local (Gemma 4)",
             "options": {
-                "baseURL": "http://127.0.0.1:8080/v1",
-                "apiKey": "sk-carbon-builder-key"
+                "baseURL": "http://localhost:11434/v1"
             },
             "models": {
-                "qwen2.5-14b-coder": {
-                    "name": "Qwen 2.5 Coder 14B (Fast & Smart)"
+                "gemma4:26b-a4b-it-q4_K_M": {
+                    "name": "Gemma 4 26B (Local GPU Accelerated)"
+                },
+                "gemma4:31b-it-q4_K_M": {
+                    "name": "Gemma 4 31B (Future Use)"
                 }
             }
         }

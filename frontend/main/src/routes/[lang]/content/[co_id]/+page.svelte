@@ -53,7 +53,7 @@
 	});
 </script>
 
-<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-8">
 	{#if content}
 		<h1 class="hidden md:block text-3xl font-bold mb-8 pb-4 border-b">
 			{content.co_subject}

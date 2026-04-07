@@ -1,0 +1,20 @@
+# Build results
+/target/
+**/target/
+
+# Cargo lock - uncomment if you want to commit dependencies
+# Cargo.lock
+
+# Local configuration
+.env
+.env.local
+.env.*.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store

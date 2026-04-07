@@ -71,6 +71,15 @@ function transformMenus(menus: Menu[], lang: string = 'ko'): Menu[] {
 }
 
 function loadCachedMenus(): Menu[] {
+    if (!browser) return [];
+    try {
+        const cached = localStorage.getItem(MENU_STORAGE_KEY);
+        if (cached) {
+            return JSON.parse(cached);
+        }
+    } catch (e) {
+        console.warn('Failed to load cached menus:', e);
+    }
     return [];
 }
 

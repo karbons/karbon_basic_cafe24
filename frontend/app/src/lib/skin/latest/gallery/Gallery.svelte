@@ -3,6 +3,7 @@
     import { Heart, Calendar, Image as ImageIcon } from "lucide-svelte";
     import type { Write } from "$lib/type/board";
 import { base } from '$app/paths';
+import { resolveImageUrl } from "$lib/util/image";
 
     interface Props {
         posts: Write[];
@@ -67,7 +68,7 @@ import { base } from '$app/paths';
             <div class="relative aspect-[4/3] overflow-hidden bg-gray-100">
                 {#if post.thumbnail}
                     <img
-                        src={post.thumbnail}
+                        src={resolveImageUrl(post.thumbnail)}
                         alt={post.wr_subject}
                         class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
                     />
@@ -160,7 +161,7 @@ import { base } from '$app/paths';
                         >
                             {#if post.thumbnail}
                                 <img
-                                    src={post.thumbnail}
+                                    src={resolveImageUrl(post.thumbnail)}
                                     alt={post.wr_subject}
                                     class="w-full h-full object-cover"
                                 />
