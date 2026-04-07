@@ -2,6 +2,7 @@ use axum::{extract::{State, Path}, response::IntoResponse, Json};
 
 use crate::types::AppState;
 use crate::response::ApiResponse;
+use crate::timer::Timer;
 
 #[derive(sqlx::FromRow, serde::Serialize)]
 pub struct Content {
@@ -20,6 +21,7 @@ pub async fn get(
     State(state): State<AppState>,
     Path(co_id): Path<String>,
 ) -> impl IntoResponse {
+    let timer = Timer::new();
     let content: Option<Content> = sqlx::query_as::<_, Content>(
         "SELECT co_id, co_subject, co_content, co_mobile_content, co_skin, co_mobile_skin, co_hit, co_datetime, co_update_datetime 
          FROM g5_content WHERE co_id = ? OR co_name = ?"
@@ -34,13 +36,13 @@ pub async fn get(
             code: "00000".to_string(),
             data: Some(c),
             msg: "".to_string(),
-            time: 0.0,
+            time: timer.elapsed(),
         }).into_response(),
         None => Json(ApiResponse::<Content> {
             code: "00001".to_string(),
             data: None,
             msg: "존재하지 않는 컨텐츠입니다.".to_string(),
-            time: 0.0,
+            time: timer.elapsed(),
         }).into_response(),
     }
 }

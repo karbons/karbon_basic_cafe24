@@ -2,6 +2,7 @@ use axum::{extract::{State, Path}, response::IntoResponse, Json};
 
 use crate::types::AppState;
 use crate::response::ApiResponse;
+use crate::timer::Timer;
 
 #[derive(sqlx::FromRow, serde::Serialize)]
 pub struct Banner {
@@ -20,6 +21,7 @@ pub async fn get(
     State(state): State<AppState>,
     Path(position): Path<String>,
 ) -> impl IntoResponse {
+    let timer = Timer::new();
     let banners: Vec<Banner> = sqlx::query_as::<_, Banner>(
         "SELECT bn_id, bn_name, bn_image, bn_url, bn_position, bn_begin_datetime, bn_end_datetime, bn_order, bn_use 
          FROM g5_banner WHERE bn_position = ? AND bn_use = 1 
@@ -35,6 +37,6 @@ pub async fn get(
         code: "00000".to_string(),
         data: Some(banners),
         msg: "".to_string(),
-        time: 0.0,
+        time: timer.elapsed(),
     }).into_response()
 }

@@ -2,6 +2,7 @@ use axum::{extract::State, response::IntoResponse, Json};
 
 use crate::types::AppState;
 use crate::response::ApiResponse;
+use crate::timer::Timer;
 
 #[derive(sqlx::FromRow, serde::Serialize)]
 pub struct Popup {
@@ -18,6 +19,7 @@ pub struct Popup {
 }
 
 pub async fn get(State(state): State<AppState>) -> impl IntoResponse {
+    let timer = Timer::new();
     let popups: Vec<Popup> = sqlx::query_as::<_, Popup>(
         "SELECT pp_id, pp_subject, pp_content, pp_width, pp_height, pp_left, pp_top, pp_begin_datetime, pp_end_datetime, pp_use 
          FROM g5_popup WHERE pp_use = 1 
@@ -31,6 +33,6 @@ pub async fn get(State(state): State<AppState>) -> impl IntoResponse {
         code: "00000".to_string(),
         data: Some(popups),
         msg: "".to_string(),
-        time: 0.0,
+        time: timer.elapsed(),
     }).into_response()
 }

@@ -7,6 +7,7 @@ use axum::{
 use crate::types::{AppState, Member};
 use crate::response::ApiResponse;
 use crate::middleware::jwt::generate_access_token;
+use crate::timer::Timer;
 
 #[derive(serde::Deserialize)]
 pub struct LoginRequest {
@@ -37,6 +38,7 @@ pub async fn post(
     State(state): State<AppState>,
     Json(req): Json<LoginRequest>,
 ) -> impl IntoResponse {
+    let timer = Timer::new();
     let member: Option<Member> = sqlx::query_as::<_, Member>(
         "SELECT * FROM g5_member WHERE mb_id = ?"
     )
@@ -51,7 +53,7 @@ pub async fn post(
                 code: "00002".to_string(),
                 data: None,
                 msg: "가입된 회원아이디가 아니거나 비밀번호가 틀립니다.".to_string(),
-                time: 0.0,
+                time: timer.elapsed(),
             }).into_response();
         }
     };
@@ -65,7 +67,7 @@ pub async fn post(
             code: "00002".to_string(),
             data: None,
             msg: "가입된 회원아이디가 아니거나 비밀번호가 틀립니다.".to_string(),
-            time: 0.0,
+            time: timer.elapsed(),
         }).into_response();
     }
 
@@ -92,6 +94,6 @@ pub async fn post(
         code: "00000".to_string(),
         data: Some(response),
         msg: "로그인 성공".to_string(),
-        time: 0.0,
+        time: timer.elapsed(),
     }).into_response()
 }

@@ -5,6 +5,7 @@ use axum::{
 };
 use crate::types::AppState;
 use crate::response::ApiResponse;
+use crate::timer::Timer;
 
 #[derive(serde::Deserialize)]
 pub struct RegisterRequest {
@@ -19,6 +20,7 @@ pub async fn post(
     State(state): State<AppState>,
     Json(req): Json<RegisterRequest>,
 ) -> impl IntoResponse {
+    let timer = Timer::new();
     let existing: Option<(String,)> = sqlx::query_as(
         "SELECT mb_id FROM g5_member WHERE mb_id = ?"
     )
@@ -31,7 +33,7 @@ pub async fn post(
             code: "00001".to_string(),
             data: None,
             msg: "이미 존재하는 회원아이디입니다.".to_string(),
-            time: 0.0,
+            time: timer.elapsed(),
         }).into_response();
     }
 
@@ -45,7 +47,7 @@ pub async fn post(
                 code: "00001".to_string(),
                 data: None,
                 msg: "비밀번호 해시 생성 실패".to_string(),
-                time: 0.0,
+                time: timer.elapsed(),
             }).into_response();
         }
     };
@@ -66,13 +68,13 @@ pub async fn post(
             code: "00000".to_string(),
             data: Some(serde_json::json!({})),
             msg: "회원가입이 완료되었습니다.".to_string(),
-            time: 0.0,
+            time: timer.elapsed(),
         }).into_response(),
         Err(e) => Json(ApiResponse::<serde_json::Value> {
             code: "00001".to_string(),
             data: None,
             msg: format!("회원가입 실패: {}", e),
-            time: 0.0,
+            time: timer.elapsed(),
         }).into_response(),
     }
 }
